@@ -1,0 +1,35 @@
+24/Feb/2016
+
+Part #13 - Template Level Subscriptions
+---------------------------------------
+
+	Set up a subscription to subscribe to only the recipes we need when looking at the
+	recipes book page.
+
+	- Subscribe to the recipes at the template level, rather than the 'client' level
+	- Comment out the subscription
+	- Subscriptions are an important part of performance, you only want to subscribe
+		and publish the things you will need.
+	- Subscription management is part of having a performative operation.
+	- We will keep the subscribe at the template level.
+
+	Template.Recipes.onCreated(function() {
+		var self = this;
+		self.autorun(function() {
+			self.subscribe('recipes');
+		});
+	});
+
+	* Autorun will unsubscribe us from any old subscriptions.
+
+	- This will disconnect the subscription from being dependant on any route.  This
+	will allow us to place the recipes template anywhere else on the page.
+
+	- We can now say
+		Recipes.html
+
+			{{#if Template.subscriptionsReady}}
+				(each recipes)
+				{{else}}
+					<p>Loading</p>
+			{{/if}}
